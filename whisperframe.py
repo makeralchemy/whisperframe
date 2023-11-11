@@ -9,6 +9,9 @@ import webbrowser
 import json
 import requests
 import pyperclip
+from datetime import datetime
+from io import BytesIO
+import os
 
 
 
@@ -85,19 +88,25 @@ def generate_image(api_key, text):
     return url
 
 
-def save_image_from_url(url, filename):   
+def save_image_from_url(url, filename, folder):
+    # Get current date and time
+    now = datetime.now()
+    timestamp = now.strftime("%Y%m%d_%H%M%S")
+
+    # Append date and time to filename
+    filename_with_timestamp = f"{filename}_{timestamp}.png"
+
+    # Create full path for the new file
+    full_path = os.path.join(folder, filename_with_timestamp)
+
     # Download image from URL
     response = requests.get(url)
-    with open(filename, "wb") as f:
-        f.write(response.content)
-
-    # Open image from file
-    image = Image.open(filename)
+    image = Image.open(BytesIO(response.content))
 
     # Save image to file
-    image.save(filename)
-    
-    return
+    image.save(full_path)
+
+    return full_path
 
 
 def display_image_in_browser(url):
@@ -134,7 +143,7 @@ print("Copying URL to clipboard...")
 copy_to_clipboard(url)
 
 print("Saving image...")
-save_image_from_url(url, "output.png")
+print(save_image_from_url(url, "output", "images"))
 
 print("Displaying image in browser...")
 display_image_in_browser(url)

@@ -4,3 +4,5 @@
 *.png
 # ignore api keys file
 api_keys.toml
+# ignore generated images
+/images
