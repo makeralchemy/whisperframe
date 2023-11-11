@@ -1,2 +1,6 @@
 # ignore python virtual environments
 /venv
+# ignore generated images
+*.png
+# ignore api keys file
+api_keys.toml
