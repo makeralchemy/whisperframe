@@ -116,8 +116,8 @@ def copy_to_clipboard(text):
 print("Querying audio devices...")
 print(sd.query_devices())
 
-print("Recording audio...")
-record_audio("output.wav", duration_mins=1)
+# print("Recording audio...")
+# record_audio("output.wav", duration_mins=1)
 
 print("Getting OpenAI API key...")
 filename = "api_keys.toml"
